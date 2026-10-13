@@ -12,7 +12,6 @@ setopt HIST_REDUCE_BLANKS     # trim whitespace
 
 # ---- Options --------------------------------------------------------------
 setopt AUTO_CD                # type a directory name to cd into it
-setopt CORRECT                # offer spelling corrections
 setopt INTERACTIVE_COMMENTS   # allow # comments in interactive shell
 
 # ---- Completion -----------------------------------------------------------
@@ -53,6 +52,15 @@ alias reload="exec zsh -l"    # fresh shell that re-reads .zprofile and .zshrc
 
 # ---- Machine-specific settings (not in git) -------------------------------
 [[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
+
+# ---- Up/Down search history for what you've already typed ----------------
+autoload -Uz up-line-or-beginning-search down-line-or-beginning-search
+zle -N up-line-or-beginning-search
+zle -N down-line-or-beginning-search
+bindkey '^[[A' up-line-or-beginning-search    # Up arrow
+bindkey '^[OA' up-line-or-beginning-search    # Up arrow (alternate code)
+bindkey '^[[B' down-line-or-beginning-search  # Down arrow
+bindkey '^[OB' down-line-or-beginning-search  # Down arrow (alternate code)
 
 # ---- Plugins: keep last; syntax-highlighting must be the final line -------
 source $HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh
